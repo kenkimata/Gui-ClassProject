@@ -4,7 +4,7 @@ import random
 names_list = []
 global questions_answers
 asked = []
-
+score=0
 
 # Dictionary has key of number (for each question number) and : the value for each is a list that has 7 items, so index 0 to 6
 questions_answers = {
@@ -121,11 +121,23 @@ class Quiz:
         self.rb4.grid(row=2, sticky=W)
 
         #confirm answer button
-        self.confirm_button = Button(self.quiz_frame, text="Confirm", bg="yellow2")
+        self.confirm_button = Button(self.quiz_frame, text="Confirm", bg="yellow2", command=self.test_progress)
         self.confirm_button.grid(row=5)
 
+        self.score_label=Label(self.quiz_frame, text="SCORE", font=("TW Cen MT", "16"), bg=background_colour,)
+        self.score_label.grid(row=6, pady=1)
 
-
+    def questions_setup(self):
+        randomiser()
+        self.var1.set(0)
+        self.question_label.config(text=questions_answers[qnum][0])
+        self.rb1.config(text=questions_answers[qnum][1])
+        self.rb2.config(text=questions_answers[qnum][2])
+        self.rb3.config(text=questions_answers[qnum][3])
+        self.rb4.config(text=questions_answers[qnum][4])
+    
+    def test_progress(self):
+        global score
        
     
         
