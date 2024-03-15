@@ -2,17 +2,19 @@ from tkinter import *
 import random
 
 names_list = []
+global questions_answers
 asked = []
 
 
-global questions_answers = {
+# Dictionary has key of number (for each question number) and : the value for each is a list that has 7 items, so index 0 to 6
+questions_answers = {
     1: ["What do you do when you see blue and red flashing lights behind you?", # item 1, index 0 will be the question
         'Speed up to get out of the way', # item 2, index 1 will be the first choice
         'Slow down and frive carefully', # item 3, index will be third choice
         'slow down and stop', # item 4, index will be fourth choice 
         'Drive on usual', # item 5, index will be fourth choice
         'Slow down and stop', # item 6, index 5 will be the write statement we need to display the right statement if the user enters wrong choice
-        ,3] # item 7, index 6 will be the position of the right answer (index where right answer sits), this will be out check if answer is correct or not
+        ,3], # item 7, index 6 will be the position of the right answer (index where right answer sits), this will be out check if answer is correct or not
     
     2: ["You may stop on a motorway only:", 'if there is an emergency', 'To let down or pick up passengers', 'to make a U-turn', 'to stop and take a photo',
         'if there is an emergency',1],
@@ -42,6 +44,7 @@ def randomiser():
     elif qnum in asked:
         randomiser()
 
+
 class Quizstarter:
     def __init__ (self,parent):
         background_colour="OldLace"
@@ -70,9 +73,25 @@ class Quizstarter:
         names_list.append(name)
         print(names_list)
         self.quiz_frame.destroy()
+        Quiz(root)
+class Quiz: 
+    
+    def __init__ (self,parent):
+        background_colour="OldLace"
+        #frame set up
+        self.quiz_frame = Frame(parent, bg = background_colour, padx=100, pady=100)
+        self.quiz_frame.grid()
 
+        #Label widget for our heading
+        self.question_label = Label (self.quiz_frame, text = questions_answers[qnum][0], font=("Tw Cen MT", "18", "bold"), bg=background_colour)
+        self.question_label.grid(row=0)
 
+        self.var1=IntVar()
 
+        randomiser()
+
+        self.rb1 = Radiobutton (self, quiz_frame, text = questions_answers[qnum][1], font=("Helvetica", "12"), bg=background_colour, value=1, variable=self.var1, pady=10)
+        self.rb1.grid(row=1)
 
 
 #*********************************Starting point of program********************#
