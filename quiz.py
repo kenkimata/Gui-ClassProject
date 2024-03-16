@@ -138,7 +138,34 @@ class Quiz:
     
     def test_progress(self):
         global score
+        scr_label = self.score_label
+        choice = self.var1.get()
+        if len(asked)>9: # if the question is last
+            if choice == questions_answers[qnum][6]: 
+                score +=1
+                scr_label.configure(text=score)
+                self.confirm_button.config(text="Confirm")
+            else:
+                score+=0
+                scr_label.configure(text="The correct answer was " + questions_answers[qnum][5])
+                self.confirm_button.config(text="Confirm")
+        else:  
+           if choice==0: 
+               self.confirm_button.config(text="Try agian plz you didnt select anything")
+               choice=self.var1.get()
+           else: # if they made a choice and its not last question
+                if choice==questions_answers[qnum][6]: # if their choice is right
+                    score+=1
+                    scr_label.configure(text=score)
+                    self.confirm_button.config(text="Confirm")
+                    self.question_setup() # run this method to move to next question
+                else: 
+                    score+=0
+                    scr_label.configure(text=" The correct answer was: " + questions_answers[qnum][5])
+                    self.confirm_button.configure(text="Confirm")
+                    self.questions_setup()
        
+
     
         
 
